@@ -1,0 +1,142 @@
+# 2020-3-3
+# TBSI
+# ZHX
+
+import tkinter as tk
+import pandas as pd
+import matplotlib.pyplot as plt
+
+print('The default amount of player is two.' + '\n')
+
+# num_player_1 = input('How many strategies does player 1 has?'+'\n')
+# num_player_2 = input('How many strategies does player 2 has?'+'\n')
+#
+# print('Now you get a %s*%s payoff matrix of this game.'%(num_player_1, num_player_2))
+
+root = tk.Tk()
+root.title('Two-person Game')
+
+label1 = tk.Label(root, text="p1_s1").grid(row=1, column=0)
+label2 = tk.Label(root, text="p1_s2").grid(row=2, column=0)
+label3 = tk.Label(root, text="p2_s1").grid(row=0, column=1)
+label4 = tk.Label(root, text="p2_s2").grid(row=0, column=3)
+
+e11 = tk.Entry(root)
+e11.grid(row=1, column=1, ipadx=10, padx=10, pady=10)
+e12 = tk.Entry(root)
+e12.grid(row=1, column=3, ipadx=10, padx=10, pady=10)
+e21 = tk.Entry(root)
+e21.grid(row=2, column=1, ipadx=10, padx=10, pady=10)
+e22 = tk.Entry(root)
+e22.grid(row=2, column=3, ipadx=10, padx=10, pady=10)
+
+e11.insert(0, [4,3])  # default para
+e12.insert(0, [5,6])
+e21.insert(0, [2,4])
+e22.insert(0, [6,2])
+
+label5 = tk.Label(root, text="Best Response").grid(row=4, column=0)
+out1 = tk.Entry(root)  # the blank for the output
+out1.grid(row=4, column=1, ipadx=10, padx=10, pady=10)
+out2 = tk.Entry(root)
+out2.grid(row=4, column=2, ipadx=10, padx=10, pady=10)
+out3 = tk.Entry(root)
+out3.grid(row=4, column=3, ipadx=10, padx=10, pady=10)
+out4 = tk.Entry(root)
+out4.grid(row=4, column=4, ipadx=10, padx=10, pady=10)
+
+
+
+def get_p1_BR_against_p2_s1():
+
+    data = {'p2_s1': [e11.get(), e21.get()],
+            'p2_s2': [e12.get(), e22.get()]}
+    df = pd.DataFrame(data,
+                      index=['p1_s1', 'p1_s2'])
+
+    # print(df)
+    # print('\n')
+    p1_BR_against_p2_s1 = df['p2_s1'].str.split(expand=True)  # get the column 'p2_s1'
+    p1_BR_against_p2_s1.rename(columns={i: i for i in range(len(e11.get()))})  # lambda
+    # print(p1_BE_against_p2_s1)
+    # print('\n')
+    p1_payoff_against_p2_s1 = p1_BR_against_p2_s1.iloc[:, 0].astype('float64')  # get all rows of the #0 column then transfer it into type float64
+    # print(p1_payoff_against_p2_s1)
+    # print('\n')
+    p1_BR_vs_p2_s1 = p1_payoff_against_p2_s1.idxmax()  # get the index related to maximum of pointed column
+    # print(p1_BR)
+    # print('\n')
+    out1.delete(0, last=10)  # clear the previous content
+    out1.insert(0, p1_BR_vs_p2_s1+' ')
+
+
+def get_p1_BR_against_p2_s2():
+    data = {'p2_s1': [e11.get(), e21.get()],
+            'p2_s2': [e12.get(), e22.get()]}
+    df = pd.DataFrame(data,
+                      index=['p1_s1', 'p1_s2'])
+
+    p1_BR_against_p2_s2 = df['p2_s2'].str.split(expand=True)  # get the column 'p2_s1'
+    p1_BR_against_p2_s2.rename(columns={i: i for i in range(len(e11.get()))})  # lambda
+    p1_payoff_against_p2_s2 = p1_BR_against_p2_s2.iloc[:, 0].astype(
+        'float64')  # get all rows of the #0 column then transfer it into type float64
+    p1_BR_vs_p2_s2 = p1_payoff_against_p2_s2.idxmax()  # get the index related to maximum of pointed column
+    out2.delete(0, last=10)
+    out2.insert(0, p1_BR_vs_p2_s2+' ')
+
+
+def get_p2_BR_against_p1_s1():
+    data = {'p2_s1': [e11.get(), e21.get()],
+            'p2_s2': [e12.get(), e22.get()]}
+    df = pd.DataFrame(data,
+                      index=['p1_s1', 'p1_s2']).T  # transpose
+
+    p2_BR_against_p1_s1 = df['p1_s1'].str.split(expand=True)  # get the column 'p2_s1'
+    p2_BR_against_p1_s1.rename(columns={i: i for i in range(len(e11.get()))})  # lambda
+    p2_payoff_against_p1_s1 = p2_BR_against_p1_s1.iloc[:, 1].astype(
+        'float64')  # get all rows of the #1 column then transfer it into type float64
+    # tmp = p2_payoff_against_p1_s1.iloc[0]
+    # print(tmp)
+    p2_BR_vs_p1_s1 = p2_payoff_against_p1_s1.idxmax()  # get the index related to maximum of pointed column
+    out3.delete(0, last=10)
+    out3.insert(0, p2_BR_vs_p1_s1+' ')
+
+
+def get_p2_BR_against_p1_s2():
+    data = {'p2_s1': [e11.get(), e21.get()],
+            'p2_s2': [e12.get(), e22.get()]}
+    df = pd.DataFrame(data,
+                      index=['p1_s1', 'p1_s2']).T  # transpose
+
+    p2_BR_against_p1_s2 = df['p1_s2'].str.split(expand=True)  # get the column 'p2_s1'
+    p2_BR_against_p1_s2.rename(columns={i: i for i in range(len(e11.get()))})  # lambda
+    p2_payoff_against_p1_s2 = p2_BR_against_p1_s2.iloc[:, 1].astype(
+        'float64')  # get all rows of the #1 column then transfer it into type float64
+    p2_BR_vs_p1_s2 = p2_payoff_against_p1_s2.idxmax()  # get the index related to maximum of pointed column
+    out4.delete(0, last=10)
+    out4.insert(0, p2_BR_vs_p1_s2+' ')
+
+def draw_BR():
+    fig = plt.figure()
+
+    ax1 = fig.add_subplot(111)  # the fig is on the position 1 of one-by-one figure
+    ax1.set(xlim=[0, 1], ylim=[0, 10],
+            title='Best Response',
+            xlabel='Prob. for player 2 to choose s2',
+            ylabel='Expected Payoffs')  # set the spectrum of x and y axis
+    prob = [0,1]
+    expected_payoffs_p1_s1 = [int(e11.get()[0]), int(e12.get()[0])]
+    expected_payoffs_p1_s2 = [int(e21.get()[0]), int(e22.get()[0])]
+    ax1.plot(prob, expected_payoffs_p1_s1, color='red')
+    ax1.plot(prob, expected_payoffs_p1_s2, color='blue')
+
+    plt.show()
+
+
+tk.Button(root, text="p1'BR against p2's1", width=10, command=get_p1_BR_against_p2_s1).grid(row=3, column=1, ipadx=30, pady=5)
+tk.Button(root, text="p1'BR against p2's2", width=10, command=get_p1_BR_against_p2_s2).grid(row=3, column=2, ipadx=30, pady=5)
+tk.Button(root, text="p2'BR against p1's1", width=10, command=get_p2_BR_against_p1_s1).grid(row=3, column=3, ipadx=30, pady=5)
+tk.Button(root, text="p2'BR against p1's2", width=10, command=get_p2_BR_against_p1_s2).grid(row=3, column=4, ipadx=30, pady=5)
+tk.Button(root, text="Draw BR line", width=10, command=draw_BR).grid(row=5, column=1, ipadx=30, pady=5)
+
+tk.mainloop()
