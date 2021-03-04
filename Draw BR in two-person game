@@ -12,11 +12,14 @@ print('The default amount of player is two.' + '\n')
 root = tk.Tk()
 root.title('Two-person Game')
 
+# put the Label items on the frame
 label1 = tk.Label(root, text="p1_s1").grid(row=1, column=0)
 label2 = tk.Label(root, text="p1_s2").grid(row=2, column=0)
 label3 = tk.Label(root, text="p2_s1").grid(row=0, column=1)
 label4 = tk.Label(root, text="p2_s2").grid(row=0, column=3)
+label5 = tk.Label(root, text="Best Response").grid(row=4, column=0)
 
+# put the Entry items on the frame
 e11 = tk.Entry(root)
 e11.grid(row=1, column=1, ipadx=10, padx=10, pady=10)
 e12 = tk.Entry(root)
@@ -26,12 +29,13 @@ e21.grid(row=2, column=1, ipadx=10, padx=10, pady=10)
 e22 = tk.Entry(root)
 e22.grid(row=2, column=3, ipadx=10, padx=10, pady=10)
 
-e11.insert(0, [4,3])  # default para
+# show the default parameters on the Entry items
+e11.insert(0, [4,3])
 e12.insert(0, [5,6])
 e21.insert(0, [2,4])
 e22.insert(0, [6,2])
 
-label5 = tk.Label(root, text="Best Response").grid(row=4, column=0)
+# put the Entry items on the frame
 out1 = tk.Entry(root)  # the blank for the output
 out1.grid(row=4, column=1, ipadx=10, padx=10, pady=10)
 out2 = tk.Entry(root)
@@ -40,7 +44,6 @@ out3 = tk.Entry(root)
 out3.grid(row=4, column=3, ipadx=10, padx=10, pady=10)
 out4 = tk.Entry(root)
 out4.grid(row=4, column=4, ipadx=10, padx=10, pady=10)
-
 
 
 def get_p1_BR_against_p2_s1():
@@ -63,7 +66,7 @@ def get_p1_BR_against_p2_s1():
     # print(p1_BR)
     # print('\n')
     out1.delete(0, last=10)  # clear the previous content
-    out1.insert(0, p1_BR_vs_p2_s1+' ')
+    out1.insert(0, p1_BR_vs_p2_s1+' ')  # show the BR
 
 
 def get_p1_BR_against_p2_s2():
@@ -111,6 +114,7 @@ def get_p2_BR_against_p1_s2():
     p2_BR_vs_p1_s2 = p2_payoff_against_p1_s2.idxmax()  # get the index related to maximum of pointed column
     out4.delete(0, last=10)
     out4.insert(0, p2_BR_vs_p1_s2+' ')
+
 
 def draw_BR():
     fig = plt.figure()
