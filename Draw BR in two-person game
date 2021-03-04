@@ -1,3 +1,4 @@
+# A GUI that gets and draws the Best Response of players in a two-person game
 # 2020-3-3
 # TBSI
 # ZHX
@@ -7,11 +8,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 print('The default amount of player is two.' + '\n')
-
-# num_player_1 = input('How many strategies does player 1 has?'+'\n')
-# num_player_2 = input('How many strategies does player 2 has?'+'\n')
-#
-# print('Now you get a %s*%s payoff matrix of this game.'%(num_player_1, num_player_2))
 
 root = tk.Tk()
 root.title('Two-person Game')
