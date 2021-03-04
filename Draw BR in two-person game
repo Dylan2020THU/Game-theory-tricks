@@ -122,13 +122,21 @@ def draw_BR():
     ax1 = fig.add_subplot(111)  # the fig is on the position 1 of one-by-one figure
     ax1.set(xlim=[0, 1], ylim=[0, 10],
             title='Best Response',
-            xlabel='Prob. for player 2 to choose s2',
+            xlabel='Prob. for players to choose s2',
             ylabel='Expected Payoffs')  # set the spectrum of x and y axis
     prob = [0,1]
+
+    #draw p1's BR line
     expected_payoffs_p1_s1 = [int(e11.get()[0]), int(e12.get()[0])]
     expected_payoffs_p1_s2 = [int(e21.get()[0]), int(e22.get()[0])]
     ax1.plot(prob, expected_payoffs_p1_s1, color='red')
-    ax1.plot(prob, expected_payoffs_p1_s2, color='blue')
+    ax1.plot(prob, expected_payoffs_p1_s2, color='red')
+
+    # draw p2's BR line
+    expected_payoffs_p2_s1 = [int(e11.get()[2]), int(e12.get()[2])]
+    expected_payoffs_p2_s2 = [int(e21.get()[2]), int(e22.get()[2])]
+    ax1.plot(prob, expected_payoffs_p2_s1, color='blue')
+    ax1.plot(prob, expected_payoffs_p2_s2, color='blue')
 
     plt.show()
 
