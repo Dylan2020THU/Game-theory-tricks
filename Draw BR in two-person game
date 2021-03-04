@@ -129,15 +129,16 @@ def draw_BR():
     #draw p1's BR line
     expected_payoffs_p1_s1 = [int(e11.get()[0]), int(e12.get()[0])]
     expected_payoffs_p1_s2 = [int(e21.get()[0]), int(e22.get()[0])]
-    ax1.plot(prob, expected_payoffs_p1_s1, color='red')
-    ax1.plot(prob, expected_payoffs_p1_s2, color='red')
+    ax1.plot(prob, expected_payoffs_p1_s1, color='red', label='P1 S1 Exp. Payoffs')
+    ax1.plot(prob, expected_payoffs_p1_s2, color='#ff7fa7', label='P1 S2 Exp. Payoffs')
 
     # draw p2's BR line
     expected_payoffs_p2_s1 = [int(e11.get()[2]), int(e12.get()[2])]
     expected_payoffs_p2_s2 = [int(e21.get()[2]), int(e22.get()[2])]
-    ax1.plot(prob, expected_payoffs_p2_s1, color='blue')
-    ax1.plot(prob, expected_payoffs_p2_s2, color='blue')
+    ax1.plot(prob, expected_payoffs_p2_s1, color='blue', label='P2 S1 Exp. Payoffs')
+    ax1.plot(prob, expected_payoffs_p2_s2, color='#069af3', label='P2 S2 Exp. Payoffs')
 
+    plt.legend(loc=2,ncol=2)
     plt.show()
 
 
